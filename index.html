@@ -44,7 +44,7 @@
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         container.className = "unity-mobile";
         config.devicePixelRatio = 1;
-		canvas.style.position = "absolute";
+		    canvas.style.position = "absolute";
 		
       } else {
         canvas.style.width = "450px";
@@ -86,33 +86,71 @@
 		function OnInput(){
 			handle.SendMessage('_WebGLKeyboard', 'ReceiveInputChange', document.getElementById("fixInput").value);
 		}	
-	</script>
-	
-	<script type="application/javascript" src="../lib/fastclick.js"></script> 
-	<script type="application/javascript">
-	window.addEventListener('load', function() {
-		var textInput = document.querySelector('input');
-
-		FastClick.attach(document.body);
-		Array.prototype.forEach.call(document.getElementsByClassName('test'), function(testEl) {
-			testEl.addEventListener('click', function() {
-				textInput.focus();
-			}, false)
-		});
-	}, false);
-</script> 
+  </script>
 	<div>
-		<form 
-		onsubmit="FixInputOnSubmit()"
-		autocomplete="off" 
-		style="width: 0px; height: 0px; position: absolute; top: -9999px;">
-			<input 
-			type="text" 
-			id="fixInput" 
-			oninput="OnInput()"
-			style="font-size: 42px;">
-		</form>
-	</div>
 
-	</body>
+
+
+  <body>
+    <button onclick="openDialog()"
+    style="width: 240px; height: 100px; position: absolute; top: 10px;">Open dialog</button>
+    <dialog id="dialog">
+      <form>
+        <label for="name" style="font-size: 42px;"> First name: </label>
+        <input type="text" id="name" name="name" style="font-size: 42px;"/><br />
+        <label for="lastname"> Last name: </label>
+        <input type="text" id="lastname" name="lastname" /><br />
+        <label for="email"> Email: </label>
+        <input type="email" id="email" email="email" style="font-size: 42px;"/><br />
+        <input type="submit" value="Submit" style="font-size: 42px;"/>
+      </form>
+    </dialog>
+
+    <script>
+      function openDialog() {
+        document.getElementById("dialog").open = true;
+      }
+
+      function OnInput(){
+        var player = JSON.stringify(
+          {
+            name : document.getElementById("name").value,
+            surname : document.getElementById("lastname").value,
+            mail : document.getElementById("email").value
+
+      });
+      handle.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player);
+    }
+    class PlayerContent{
+      name;
+      surname;
+      mail;
+      PlayerContent(n, s, e){
+        name = n;
+        surname = s;
+        mail = e;
+      }
+    }
+
+
+      let dialog = document.getElementById("dialog");
+      dialog.style.position = "fixed";
+      dialog.style.top = 10 +'px';
+      dialog.style.width = '90%';
+
+      document.getElementById("dialog").addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log(
+          "name: " +
+            document.getElementById("name").value +
+            " last name: " +
+            document.getElementById("lastname").value +
+            " email: " +
+            document.getElementById("email").value
+        );
+        OnInput();
+      });
+    </script>
+  </body>
+
 </html>
