@@ -3,6 +3,7 @@
   <head>  
     <meta charset="utf-8">  
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <title>Unity WebGL Player | WebShop_Game</title>  
     <link rel="shortcut icon" href="TemplateData/favicon.ico">  
     <link rel="stylesheet" href="TemplateData/style.css"> 
@@ -43,9 +44,8 @@
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");  
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {  
         container.className = "unity-mobile"; 
-        config.devicePixelRatio = 1;  
-        canvas.style.position = "absolute"; 
-      
+        config.devicePixelRatio = 3;  
+        canvas.style.position = "absolute";
       } else {  
         canvas.style.width = "450px"; 
         canvas.style.height = "667px";  
@@ -124,12 +124,12 @@
       text-transform: uppercase;
       width: 100%;
       font-family: 'Roboto Slab', serif;
-      font-size: 24px;
+      font-size: 16px;
       margin: 0.25em auto;
     }
     .swal2-styled.swal2-confirm {
       /*background-color: #AC1A2F;*/
-      background-color: black;
+      background-color: magenta;
       padding: 0.5em 2em;
       text-transform: uppercase;
       font-family: 'Roboto Slab', serif;
