@@ -73,8 +73,7 @@
     </script> 
   <script>      
     
-    function FixInputOnSubmit() { 
-      document.getElementById("fixInput").blur(); 
+    function FixInputOnSubmit() {  
       event.preventDefault(); 
       console.log("test");  
     } 
@@ -106,37 +105,11 @@
     </style>  
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
   <body>  
-    <style> 
-    .swal2-title {  
-      font-weight: 400; 
-      font-family: 'Roboto Slab', serif;  
-      color: black; 
-    } 
-    .swal2-input {  
-      border: none;   
-      border-radius: 0px;   
-      box-shadow: none;   
-      border-bottom: 2px solid #AC1A2F;   
-      text-align: center;   
-      height: 2em;  
-      text-transform: uppercase;  
-      width: 100%;  
-      font-family: 'Roboto Slab', serif;  
-      margin: 0.25em auto;  
-    } 
-    .swal2-styled.swal2-confirm { 
-      background-color: #AC1A2F;  
-      padding: 0.5em 2em; 
-      text-transform: uppercase;  
-      font-family: 'Roboto Slab', serif;  
-      font-size: 24px;  
-      border-radius: 0px; 
-      font-weight: 400; 
-    } 
-  </style>  
     <script>  
       async function openDialog() { 
+        document.body.style.zoom = 1.0
         const { value: formValues } = await Swal.fire({ 
+
             position : 'top', 
             allowOutsideClick: false, 
             title: 'Enter your details',  
@@ -169,7 +142,7 @@
             surname : formValues[1],  
             mail : formValues[2]  
       }); 
-      handle.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player); 
+      handle.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player);
         } 
       } 
       function openWebsite(url){  
