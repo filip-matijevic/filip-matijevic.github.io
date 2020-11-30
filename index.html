@@ -71,8 +71,8 @@
       };  
       document.body.appendChild(script);  
     </script> 
-  <script>      
-    
+  <script>    
+   
     function FixInputOnSubmit() {  
       event.preventDefault(); 
       console.log("test");  
@@ -87,27 +87,60 @@
     }   
   </script> 
   <div> 
-        <style type="text/css"> 
-        body {  
-            display:flex; 
-            align-items: top; 
-            justify-content: center;  
-        } 
-        button {  
-            margin-top: 10px; 
-        } 
-        dialog {  
-            padding-left: 10px; 
-            padding-right: 10px;  
-            text-align: center; 
-        } 
-          
-    </style>  
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
+        <style type="text/css">
+        body {
+            display:flex;
+            align-items: top;
+            justify-content: center;
+            overflow-y: scroll; /* Show vertical scrollbar */
+            overflow-x: scroll; /* Show horizontal scrollbar */
+        }
+        button {
+            margin-top: 10px;
+        }
+        dialog {
+            padding-left: 10px;
+            padding-right: 10px;
+            text-align: center;
+        }
+        
+    </style>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+  <body>
+    <style>
+    .swal2-title {
+      font-weight: 400;
+      font-family: 'Roboto Slab', serif;
+      color: black;
+    }
+    .swal2-input {
+      border: none; 
+      border-radius: 0px; 
+      box-shadow: none; 
+      border-bottom: 2px solid #AC1A2F; 
+      text-align: center; 
+      height: 2em; 
+      text-transform: uppercase;
+      width: 100%;
+      font-family: 'Roboto Slab', serif;
+      margin: 0.25em auto;
+    }
+    .swal2-styled.swal2-confirm {
+      background-color: #AC1A2F;
+      padding: 0.5em 2em;
+      text-transform: uppercase;
+      font-family: 'Roboto Slab', serif;
+      font-size: 24px;
+      border-radius: 0px;
+      font-weight: 400;
+    }
+  </style>
   <body>  
     <script>  
       async function openDialog() { 
-        document.body.style.zoom = 1.0
         const { value: formValues } = await Swal.fire({ 
 
             position : 'top', 
@@ -117,7 +150,7 @@
             '</label><input id="firstName" type="text" name="firstname" placeholder="First name" class="swal2-input">' +  
             '</label><input id="lastName" name="lastname" placeholder="Last name" class="swal2-input">' + 
             '</label><input id="email" name="email" type="email" placeholder="email" class="swal2-input">', 
-            focusConfirm: false,  
+            //focusConfirm: false,  
             showConfirmButton: true,  
             confirmButtonText: "Submit",  
             preConfirm: () => { 
@@ -143,6 +176,8 @@
             mail : formValues[2]  
       }); 
       handle.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player);
+
+        document.body.style.zoom = 1.0;
         } 
       } 
       function openWebsite(url){  
