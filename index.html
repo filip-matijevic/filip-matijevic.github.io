@@ -48,7 +48,7 @@
         canvas.style.position = "absolute";
       } else {  
         canvas.style.width = "450px"; 
-        canvas.style.height = "667px";  
+        canvas.style.height = "812px";  
       
       } 
       loadingBar.style.display = "block"; 
@@ -148,14 +148,18 @@
             html: 
             '</label><input id="firstName" type="text" name="firstname" placeholder="First name" class="swal2-input">' +  
             '</label><input id="lastName" name="lastname" placeholder="Last name" class="swal2-input">' + 
-            '</label><input id="email" name="email" type="email" placeholder="email" class="swal2-input">', 
+            '</label><input id="email" name="email" type="email" placeholder="email" class="swal2-input">' +
+            '</label><input id="phone" name="phone" type="tel" placeholder="phone" class="swal2-input">' +
+            '</label><input id="address" name="address" type="text" placeholder="address" class="swal2-input">', 
             //focusConfirm: false,  
             showConfirmButton: true,  
             confirmButtonText: "Submit",  
             preConfirm: () => { 
               let mailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" 
               if (!(document.getElementById("firstName").value && 
-                    document.getElementById("lastName").value 
+                    document.getElementById("lastName").value &&
+                    document.getElementById("phone").value &&
+                    document.getElementById("email").value
                     && (document.getElementById("email").value) && document.getElementById("email").value.match(mailRegex))){ 
                 Swal.showValidationMessage("Please fill out all required fields correctly");}   
               else{ 
@@ -163,6 +167,8 @@
                 document.getElementById("firstName").value, 
                 document.getElementById("lastName").value,  
                 document.getElementById("email").value, 
+                document.getElementById("phone").value,
+                document.getElementById("address").value
               ];  
               } 
           },  
@@ -172,7 +178,9 @@
           { 
             name : formValues[0], 
             surname : formValues[1],  
-            mail : formValues[2]  
+            mail : formValues[2],
+            phoneNumber : formValues[3],
+            address : formValues[4]  
       }); 
       handle.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player);
 
