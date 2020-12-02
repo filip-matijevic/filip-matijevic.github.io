@@ -176,10 +176,10 @@
         if (formValues) { 
           var player = JSON.stringify(  
           { 
-            name : formValues[0], 
-            surname : formValues[1],  
-            mail : formValues[2],
-            phoneNumber : formValues[3],
+            first_name : formValues[0], 
+            last_name : formValues[1],  
+            email : formValues[2],
+            phone_number : formValues[3],
             address : formValues[4]  
       }); 
       handle.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player);
