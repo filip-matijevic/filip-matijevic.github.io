@@ -1,4 +1,5 @@
 var unityInstance;
+var savedForm = new Array(9).fill("");
 
 function assignUnityInstance(instance){
 	unityInstance = instance;
@@ -13,7 +14,7 @@ async function openDialog() {
         allowOutsideClick: false,
         title: 'Enter your contact informations',
         html: `
-            <div style="display:flex;flex-direction:row;flex-wrap: wrap;">
+            <div style="display:flex;flex-direction:row;flex-wrap: wrap;" onload="recoverInputs();" id="main_node">
 
               <div style="flex: 1 0 39%;">
                 <input id="firstName" type="text" name="firstname" placeholder="First name" class="swal2-input">
@@ -55,10 +56,18 @@ async function openDialog() {
         confirmButtonText: "Submit",        
         preConfirm: () => {
             let mailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
-            if (!(document.getElementById("firstName").value &&
+            if (!(	document.getElementById("firstName").value &&
                     document.getElementById("lastName").value &&
-                    document.getElementById("phone").value &&
                     document.getElementById("email").value &&
+                    document.getElementById("phone").value &&
+
+                    document.getElementById("add_street").value &&
+                    document.getElementById("add_st_number").value &&
+
+                    document.getElementById("add_city").value &&
+                    document.getElementById("add_state").value &&
+
+                    document.getElementById("add_zip").value &&
                     (document.getElementById("email").value) && document.getElementById("email").value.match(mailRegex))) {
                 Swal.showValidationMessage("Please fill out all required fields correctly");
             } else {
@@ -80,8 +89,14 @@ async function openDialog() {
                 ];
             }
         },
-    });
+    }).then(recoverInputs());
+
+
+
+
+
     if (formValues) {
+    	saveInputs(formValues);
         var player = JSON.stringify({
             first_name: formValues[0],
             last_name: formValues[1],
@@ -98,4 +113,16 @@ async function openDialog() {
         });
         unityInstance.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player);
     }
+}
+
+function recoverInputs(){
+	var x = document.getElementById("main_node").querySelectorAll(".swal2-input"); 
+
+	for (var i = 0; i < x.length; i++) {
+  		x[i].value = savedForm[i];
+	}
+}
+
+function saveInputs(form){
+	savedForm = form;
 }

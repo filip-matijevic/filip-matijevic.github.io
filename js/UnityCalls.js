@@ -15,16 +15,6 @@ function openWebsite(url) {
     win.focus();
 }
 
-function OnInput() {
-    var player = JSON.stringify({
-        name: document.getElementById("name").value,
-        surname: document.getElementById("lastname").value,
-        mail: document.getElementById("email").value
-    });
-    handle.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player);
-    dialog.open = false;
-}
-
 function TrySend(){
   console.log('sent');
   unityInstance.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', 'foo');
