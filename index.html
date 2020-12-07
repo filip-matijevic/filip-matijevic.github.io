@@ -19,11 +19,6 @@
           <div id="unity-progress-bar-full"></div>  
         </div>  
       </div>  
-      <div id="unity-footer"> 
-        <div id="unity-webgl-logo"></div> 
-        <div id="unity-fullscreen-button"></div>  
-        <div id="unity-build-title">WebShop_Game</div>  
-      </div>  
     </div>  
     <script>  
       var buildUrl = "Build"; 
@@ -41,14 +36,14 @@
       var canvas = document.querySelector("#unity-canvas"); 
       var loadingBar = document.querySelector("#unity-loading-bar");  
       var progressBarFull = document.querySelector("#unity-progress-bar-full"); 
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");  
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {  
         container.className = "unity-mobile"; 
         config.devicePixelRatio = 3;  
         canvas.style.position = "absolute";
       } else {  
-        canvas.style.width = "450px"; 
-        canvas.style.height = "812px";  
+        canvas.style.width = window.innerHeight * 9/16 + "px"; 
+        canvas.style.height = window.innerHeight + "px";  
+        console.log(window.innerHeight);
       
       } 
       loadingBar.style.display = "block"; 
@@ -60,32 +55,14 @@
           progressBarFull.style.width = 100 * progress + "%"; 
         }).then((unityInstance) => {  
           loadingBar.style.display = "none";  
-        
-      handle = unityInstance; 
-          fullscreenButton.onclick = () => {  
-            unityInstance.SetFullscreen(1); 
-          };  
+          assignUnityInstance(unityInstance);
+          
         }).catch((message) => { 
           alert(message); 
         }); 
       };  
       document.body.appendChild(script);  
     </script> 
-  <script>    
-   
-    function FixInputOnSubmit() {  
-      event.preventDefault(); 
-      console.log("test");  
-    } 
-      
-    function Blur(){  
-    console.log("blurred"); 
-    }     
-      
-    function OnInput(){ 
-      handle.SendMessage('_WebGLKeyboard', 'ReceiveInputChange', document.getElementById("fixInput").value);  
-    }   
-  </script> 
   <div> 
         <style type="text/css">
         body {
@@ -112,6 +89,7 @@
     .swal2-title {
       font-weight: 400;
       font-family: 'Roboto Slab', serif;
+      text-transform: uppercase;
       color: black;
     }
     .swal2-input {
@@ -119,13 +97,12 @@
       border-radius: 0px; 
       box-shadow: none; 
       border-bottom: 2px solid #AC1A2F; 
-      text-align: center; 
+      text-align: left; 
       height: 2em; 
       text-transform: uppercase;
       width: 100%;
       font-family: 'Roboto Slab', serif;
       font-size: 16px;
-      margin: 0.25em auto;
     }
     .swal2-styled.swal2-confirm {
       background-color: #AC1A2F;
@@ -137,76 +114,7 @@
       font-weight: 400;
     }
   </style>
-  <body>  
-    <script>  
-      async function openDialog() { 
-        const { value: formValues } = await Swal.fire({ 
+  <script type="text/javascript" src="js/InputBox.js"></script>
+  <script type="text/javascript" src="js/UnityCalls.js"></script>
 
-            position : 'top', 
-            allowOutsideClick: false,
-            title: 'Enter your details',  
-            html: 
-            '</label><input id="firstName" type="text" name="firstname" placeholder="First name" class="swal2-input">' +  
-            '</label><input id="lastName" name="lastname" placeholder="Last name" class="swal2-input">' + 
-            '</label><input id="email" name="email" type="email" placeholder="email" class="swal2-input">' +
-            '</label><input id="phone" name="phone" type="tel" placeholder="phone" class="swal2-input">' +
-            '</label><input id="address" name="address" type="text" placeholder="address" class="swal2-input">', 
-            //focusConfirm: false,  
-            showConfirmButton: true,  
-            confirmButtonText: "Submit",  
-            preConfirm: () => { 
-              let mailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" 
-              if (!(document.getElementById("firstName").value && 
-                    document.getElementById("lastName").value &&
-                    document.getElementById("phone").value &&
-                    document.getElementById("email").value
-                    && (document.getElementById("email").value) && document.getElementById("email").value.match(mailRegex))){ 
-                Swal.showValidationMessage("Please fill out all required fields correctly");}   
-              else{ 
-                              return [  
-                document.getElementById("firstName").value, 
-                document.getElementById("lastName").value,  
-                document.getElementById("email").value, 
-                document.getElementById("phone").value,
-                document.getElementById("address").value
-              ];  
-              } 
-          },  
-        }); 
-        if (formValues) { 
-          var player = JSON.stringify(  
-          { 
-            first_name : formValues[0], 
-            last_name : formValues[1],  
-            email : formValues[2],
-            phone_number : formValues[3],
-            address : formValues[4]  
-      }); 
-      handle.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player);
-
-        document.body.style.zoom = 1.0;
-        } 
-      } 
-      function openWebsite(url){  
-        console.log(url); 
-        var win = window.open(url, '_blank'); 
-        win.focus();  
-      } 
-      function sendDBPath(){  
-        handle.SendMessage('CONTENT MANAGER', 'ReceiveDBPath', "https://clwg.herokuapp.com/");  
-      } 
-        
-      function OnInput(){ 
-        var player = JSON.stringify(  
-          { 
-            name : document.getElementById("name").value, 
-            surname : document.getElementById("lastname").value,  
-            mail : document.getElementById("email").value 
-      }); 
-      handle.SendMessage('CONTENT MANAGER', 'ReceivePlayerData', player); 
-      dialog.open = false;  
-    } 
-      let dialog = document.getElementById("dialog"); 
-    </script> 
-  </body> 
 </html> 
