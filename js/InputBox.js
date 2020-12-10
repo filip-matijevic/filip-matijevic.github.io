@@ -5,14 +5,15 @@ function assignUnityInstance(instance){
 	unityInstance = instance;
 }
 
-async function openDialog() {
+async function openDialog(language) {
+	console.log(language)
     const {
         value: formValues
     } = await Swal.fire({
 
         position: 'top',
         allowOutsideClick: false,
-        title: 'Enter your contact informations',
+        title: language == "ENG" ? 'Enter your contact informations' : 'Entrez vos coordonnées',
         html: `
             <div style="display:flex;flex-direction:row;flex-wrap: wrap;" onload="recoverInputs();" id="main_node">
 
@@ -28,24 +29,24 @@ async function openDialog() {
                 <input id="email" name="email" type="email" placeholder="email" class="swal2-input">
                 <input id="phone" name="phone" type="tel" placeholder="phone" class="swal2-input">
               </div>
-              <div style="flex: 0 1 69%">
+              <div style="flex: 0 1 49%">
                <input id="add_street" name="add_street" type="text" placeholder="street name" class="swal2-input">
               </div>
 
               <div style="flex: 0 1 2%;"></div>
-              <div style="flex: 0 1 29%">
-                <input id="add_st_number" name="add_number" type="number" placeholder="number" class="swal2-input">
+              <div style="flex: 0 1 49%">
+                <input id="add_st_number" name="add_number" type="text" placeholder="number" class="swal2-input">
               </div>
               <div style="flex: 0 1 100%">
                 <input id="add_city" name="add_city" type="text" placeholder="City" class="swal2-input">
               </div>
-              <div style="flex: 0 1 69%">
+              <div style="flex: 0 1 59%">
                <input id="add_state" name="add_state" type="text" placeholder="State/Province" class="swal2-input">
               </div>
 
               <div style="flex: 0 1 2%;"></div>
-              <div style="flex: 0 1 29%">
-                <input id="add_zip" name="add_zip" type="number" placeholder="zip code" class="swal2-input">
+              <div style="flex: 0 1 39%">
+                <input id="add_zip" name="add_zip" type="text" placeholder="postal code" class="swal2-input">
               </div>
 
 
@@ -53,7 +54,7 @@ async function openDialog() {
             `,
         //focusConfirm: false,  
         showConfirmButton: true,
-        confirmButtonText: "Submit",        
+        confirmButtonText: language == "ENG" ? "Submit" : 'soumettre',        
         preConfirm: () => {
             let mailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
             if (!(	document.getElementById("firstName").value &&
@@ -89,7 +90,7 @@ async function openDialog() {
                 ];
             }
         },
-    }).then(recoverInputs());
+    }).then(recoverInputs(language));
 
 
 
@@ -115,14 +116,36 @@ async function openDialog() {
     }
 }
 
-function recoverInputs(){
+function recoverInputs(language){
 	var x = document.getElementById("main_node").querySelectorAll(".swal2-input"); 
 
 	for (var i = 0; i < x.length; i++) {
   		x[i].value = savedForm[i];
 	}
+
+	if (language == "ENG"){
+		setEnglish();
+	} else{
+		setFrench();
+	}
 }
 
 function saveInputs(form){
 	savedForm = form;
+}
+
+function setFrench(){
+	var x = document.getElementById("main_node").querySelectorAll(".swal2-input"); 
+	var values = ['Prénom', 'Nom', 'Courriel', 'Numéro de téléphone', 'Rue', 'Numéro civique',  'Ville', 'Province', 'Postal Code']
+	for (var i = 0; i < x.length; i++) {
+  		x[i].placeholder = values[i];
+	}
+}
+
+function setEnglish(){
+	var x = document.getElementById("main_node").querySelectorAll(".swal2-input"); 
+	var values = ['First name', 'Last name', 'email', 'phone number', 'Street name', 'number', 'City', 'Province', 'Postal Code']
+	for (var i = 0; i < x.length; i++) {
+  		x[i].placeholder = values[i];
+	}
 }
