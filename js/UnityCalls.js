@@ -10,9 +10,18 @@ function assignUnityInstance(instance){
 
 
 function openWebsite(url) {
-    console.log(url);
-    var win = window.open(url, '_blank');
-    win.focus();
+	Swal.fire({
+  	title: 'You are about to open a new web window',
+  	showCloseButton: true,
+  	showCancelButton: false,
+  	focusConfirm: true,
+  	confirmButtonText: 'CONTINUE'
+	}).then((result) =>{
+	if (result.isConfirmed){	
+    	var win = window.open(url, '_blank');
+    	win.focus();
+	}
+	})
 }
 
 function TrySend(){
