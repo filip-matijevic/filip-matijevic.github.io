@@ -1,8 +1,14 @@
 var databaseURL = 'https://clwg.herokuapp.com';
 var unityInstance;
+var currentLanguage = "ENG";
 
 function assignUnityInstance(instance){
   unityInstance = instance;
+}
+
+function setLanguage(lan){
+	console.log("Language changed");
+	currentLanguage = lan;
 }
 
 
@@ -11,11 +17,11 @@ function assignUnityInstance(instance){
 
 function openWebsite(url) {
 	Swal.fire({
-  	title: 'You are about to open a new web window',
+  	title: currentLanguage == 'ENG' ? "You are about to open a new tab" : "Vous êtes sur le point d\'ouvrir un nouvel onglet",
   	showCloseButton: true,
   	showCancelButton: false,
   	focusConfirm: true,
-  	confirmButtonText: 'CONTINUE'
+  	confirmButtonText: currentLanguage == 'ENG' ? "CONTINUE" : "CONTINUER"
 	}).then((result) =>{
 	if (result.isConfirmed){	
     	var win = window.open(url, '_blank');

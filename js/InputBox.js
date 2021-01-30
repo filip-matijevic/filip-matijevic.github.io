@@ -7,6 +7,8 @@ function assignUnityInstance(instance){
 
 async function openDialog(language) {
 	console.log(language)
+  setLanguage(language);
+  console.log("called language setter");
     const {
         value: formValues
     } = await Swal.fire({
