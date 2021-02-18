@@ -1,4 +1,4 @@
-var databaseURL = 'https://clwg.herokuapp.com';
+var databaseURL = 'https://xspace-ford-oilers-locker-room.herokuapp.com';
 var unityInstance;
 var currentLanguage = "ENG";
 
